@@ -1,0 +1,29 @@
+<ion-header class="ion-no-border">
+
+  <div class="titles">
+    <h4>
+      Pokedex
+    </h4>
+    <ion-card-subtitle>Search for Pokemon by Name.</ion-card-subtitle>
+
+    <ion-searchbar class="ion-no-padding ion-padding-top"></ion-searchbar>
+  </div>
+
+</ion-header>
+
+
+  <div class="pokemon-grid" *ngFor="let pokemon of pokemons | paginate: { itemsPerPage: 10, currentPage: page, totalItems: totalPokemons}">
+    <ion-card (click)="onDetail(pokemon)">
+            <ion-img [src]="pokemon.sprites.front_default" alt="Pokemon"></ion-img>
+            <ion-card-subtitle class="no">{{pokemon.order}}</ion-card-subtitle>
+            <ion-card-title>{{pokemon.name}}</ion-card-title>
+            <ion-card-subtitle>
+              <ion-badge>
+                {{pokemon.types[0].type.name}}
+              </ion-badge>
+            </ion-card-subtitle>
+    </ion-card>
+
+  </div>
+
+  <pagination-controls (pageChange)="page = $event; pokemons = []; getPokemons()"></pagination-controls>
